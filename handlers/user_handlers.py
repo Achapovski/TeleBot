@@ -1,6 +1,7 @@
 import asyncio
 
 from aiogram import Router, Bot
+from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import StatesGroup, State
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 from aiogram.filters import Command
@@ -30,3 +31,9 @@ async def game_process_message(message: Message, bot: Bot, **kwargs):
     await message.answer(text="Открой меня!", reply_markup=keyboard)
 
 
+@router.message(Command("clear"))
+async def clear_state_process(message: Message, bot: Bot, state: FSMContext, **kwargs):
+    message_id = message.message_id
+    await state.set_data({})
+    await asyncio.sleep(5)
+    await bot.delete_message(chat_id=message.from_user.id, message_id=message_id)
