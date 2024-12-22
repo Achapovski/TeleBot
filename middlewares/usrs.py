@@ -45,10 +45,13 @@ class InputCodeWordMiddleware(BaseMiddleware):
             return await handler(event, data)
 
         if bot:
-            message_id = await bot.send_message(chat_id=message.from_user.id, text="Что вы делаете в моем холодильнике ???")
+            message_id = await bot.send_message(chat_id=message.from_user.id,
+                                                text="Что вы делаете в моем холодильнике ???")
 
-        await asyncio.sleep(2)
-        await bot.delete_message(chat_id=message.from_user.id, message_id=message_id.message_id - 1)
-        await asyncio.sleep(1)
-        await bot.delete_message(chat_id=message.from_user.id, message_id=message_id.message_id)
+        await asyncio.sleep(12)
+        await bot.delete_message(chat_id=message.from_user.id,
+                                 message_id=message_id.message_id - 1)
+        await asyncio.sleep(12)
+        await bot.delete_message(chat_id=message.from_user.id,
+                                 message_id=message_id.message_id)
 
